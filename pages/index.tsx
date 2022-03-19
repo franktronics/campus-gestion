@@ -1,13 +1,15 @@
-import { Button, useColorMode } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import type { NextPage } from 'next'
+import Signin from '../components/account/Signin'
+import Signup from '../components/account/Signup'
+import DashboardRoute from '../components/dashboard/DashboardRoute'
 
 const Home: NextPage = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
 
   return <div>
-    <Button onClick={toggleColorMode}>
-        Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
-    </Button>
+    <DashboardRoute/>
+    {/* <Signin/> selon les conditions de connexion
+    <Signup/> */}
   </div>
 }
 
