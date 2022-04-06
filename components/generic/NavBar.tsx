@@ -1,12 +1,19 @@
 import { Box } from "@chakra-ui/react";
-import Logo from "./Logo";
 import SwitchTheme from "./SwitchTheme";
+import { IconButton } from '@chakra-ui/react'
+import { HamburgerIcon } from "@chakra-ui/icons";
 
-export default function NavBar(){
+export default function NavBar({menuOpen, onHandleMenuOpen}: {menuOpen: boolean, onHandleMenuOpen: Function}){
 
-    return <Box as="nav" display="flex" alignItems="center" justifyContent="space-between" h="60px" px={5}>
+    const toggleMenu = () => {
+        onHandleMenuOpen((c: boolean) => !c)
+    }
+
+    return <Box as="nav" bg="#f00" ml={{base: 0, md: "200px"}} display="flex" alignItems="center" justifyContent="space-between" h="60px" px={2}>
         <Box>
-            <Logo/>
+            <Box display={{base: "block", md: "none"}} onClick={toggleMenu}>
+                <IconButton aria-label='Search database' icon={<HamburgerIcon />} />
+            </Box>
         </Box>
         <Box>
             <SwitchTheme/>

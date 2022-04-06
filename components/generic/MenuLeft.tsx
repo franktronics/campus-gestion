@@ -9,13 +9,39 @@ import {
     MenuDivider,
     Box,
     Button,
+    IconButton,
 } from '@chakra-ui/react'
-import { ChevronDownIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon, CloseIcon } from '@chakra-ui/icons'
 import { menuConfig } from '../../config/menuConfig'
+import Logo from './Logo'
 
-export default function MenuLeft() {
+export default function MenuLeft({menuOpen, onHandleMenuOpen}: {menuOpen: boolean, onHandleMenuOpen: Function}) {
 
-    return <Box as="aside" display="flex" flexDirection="column" maxW="200px">
+
+    const toggleMenu = () => {
+        onHandleMenuOpen((c: boolean) => !c)
+    }
+
+    return <Box 
+            as="aside" 
+            bg="#0f0" 
+            position="absolute" 
+            left={{base: menuOpen? "0": "-200px", md: "0"}} 
+            top="0" bottom="0" 
+            height="100vh" 
+            display="flex" 
+            flexDirection="column" 
+            w="200px"
+            p="10px"
+            pt="20px"
+            transition="left ease-in-out .2s"
+        >
+        <Box w="100%" display="flex" justifyContent="space-between" alignItems="center">
+            <Logo/>
+            <Box display={{base: "block", md: "none"}} onClick={toggleMenu}>
+                <IconButton aria-label='Search database' icon={<CloseIcon />} />
+            </Box>
+        </Box>
         {
         menuConfig.map((item, k) => {
             if(item.subMenu){
