@@ -1,25 +1,29 @@
+import { CalendarIcon } from "@chakra-ui/icons"
 
 export const menuConfig = [
     {
         title: 'Home',
         link: '',
-        subMenu: [
-            {
-                title: 'Home 1',
-                link: ''
-            },
-            {
-                title: 'Home 2',
-                link: ''
-            }
-        ]
+        icon: <CalendarIcon/>
+    },
+    {
+        title: 'Customers',
+        link: '',
+        icon: <CalendarIcon/>
+    },
+    {
+        title: 'Product',
+        link: '',
+        icon: <CalendarIcon/>
     },
     {
         title: 'Cours',
-        link: ''
+        link: '',
+        icon: <CalendarIcon/>
     },
     {
         title: 'Ecole',
-        link: ''
+        link: '',
+        icon: <CalendarIcon/>
     },
 ]

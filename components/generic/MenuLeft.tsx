@@ -10,6 +10,8 @@ import {
     Box,
     Button,
     IconButton,
+    Text,
+    Flex
 } from '@chakra-ui/react'
 import { ChevronDownIcon, CloseIcon } from '@chakra-ui/icons'
 import { menuConfig } from '../../config/menuConfig'
@@ -24,7 +26,6 @@ export default function MenuLeft({menuOpen, onHandleMenuOpen}: {menuOpen: boolea
 
     return <Box 
             as="aside" 
-            bg="#0f0" 
             position="absolute" 
             left={{base: menuOpen? "0": "-200px", md: "0"}} 
             top="0" bottom="0" 
@@ -43,30 +44,12 @@ export default function MenuLeft({menuOpen, onHandleMenuOpen}: {menuOpen: boolea
             </Box>
         </Box>
         {
-        menuConfig.map((item, k) => {
-            if(item.subMenu){
-                return <Box mb={1} w="100%">
-                    <Menu>
-                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                            {item.title}
-                        </MenuButton>
-                        <MenuList>
-                            {item.subMenu.map((sub, j) => {
-                                return <MenuItem>{sub.title}</MenuItem>
-                            })}
-                        </MenuList>
-                    </Menu>
-                </Box>
-            }else{
-                return <Box mb={1} w="100%">
-                    <Menu>
-                        <MenuButton as={Button} rightIcon={null}>
-                            {item.title}
-                        </MenuButton>
-                    </Menu>
-                </Box>
-            }
-        })
+            menuConfig.map((item, k) => {
+                return <Flex key={k} p={2} bg="var(--primary)" alignItems="center" borderRadius="10px">
+                    {item.icon}
+                    <Text ml={2}>{item.title}</Text>
+                </Flex>
+            })
         }
     </Box>
 }

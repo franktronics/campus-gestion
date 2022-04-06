@@ -9,7 +9,7 @@ export default function Student(){
     return <Box as="main" position="relative">
         <NavBar menuOpen={menuOpen} onHandleMenuOpen={setMenuOpen}/>
         <MenuLeft menuOpen={menuOpen} onHandleMenuOpen={setMenuOpen}/>
-        <Box bg="#00f" w={{base: "100%", md: "calc(100% - 200px)"}} ml={{base: 0, md: "200px"}} p="10">
+        <Box w={{base: "100%", md: "calc(100% - 200px)"}} ml={{base: 0, md: "200px"}} p="10">
 
         </Box>
     </Box>

@@ -9,7 +9,7 @@ export default function NavBar({menuOpen, onHandleMenuOpen}: {menuOpen: boolean,
         onHandleMenuOpen((c: boolean) => !c)
     }
 
-    return <Box as="nav" bg="#f00" ml={{base: 0, md: "200px"}} display="flex" alignItems="center" justifyContent="space-between" h="60px" px={2}>
+    return <Box as="nav" ml={{base: 0, md: "200px"}} display="flex" alignItems="center" justifyContent="space-between" h="60px" px={2}>
         <Box>
             <Box display={{base: "block", md: "none"}} onClick={toggleMenu}>
                 <IconButton aria-label='Search database' icon={<HamburgerIcon />} />
