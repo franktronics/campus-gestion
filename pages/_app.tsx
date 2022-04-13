@@ -6,7 +6,9 @@ import { Chakra } from '../config/Chakra'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Chakra cookies={pageProps.cookies}>
-      <Component {...pageProps} />
+      <ChakraProvider theme={theme}>
+        <Component {...pageProps} />
+      </ChakraProvider>
     </Chakra>
   )
 }

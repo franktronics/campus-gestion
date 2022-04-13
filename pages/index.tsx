@@ -6,11 +6,11 @@ import DashboardRoute from '../components/dashboard/DashboardRoute'
 
 const Home: NextPage = () => {
 
-  return <div>
+  return <Box bg="secondary" minH="100vh">
     <DashboardRoute/>
     {/* <Signin/> selon les conditions de connexion
     <Signup/> */}
-  </div>
+  </Box>
 }
 
 export default Home

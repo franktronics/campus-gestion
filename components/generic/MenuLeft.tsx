@@ -36,6 +36,7 @@ export default function MenuLeft({menuOpen, onHandleMenuOpen}: {menuOpen: boolea
             p="10px"
             pt="20px"
             transition="left ease-in-out .2s"
+            bg="primary"
         >
         <Box w="100%" display="flex" justifyContent="space-between" alignItems="center">
             <Logo/>
