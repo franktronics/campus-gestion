@@ -13,7 +13,7 @@ export default function Student(){
         <Box w={{base: "100%", md: "calc(100% - 200px)"}} ml={{base: 0, md: "200px"}} p="10">
             <Link href="/inscription/etudiant">
                 <a>
-                    <Button><Text>Page d'inscription pour etudiant</Text></Button>
+                    <Button><Text>Page d&apos;inscription pour etudiant</Text></Button>
                 </a>
             </Link>
         </Box>
