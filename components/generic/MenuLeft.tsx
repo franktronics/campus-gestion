@@ -11,7 +11,8 @@ import {
     Button,
     IconButton,
     Text,
-    Flex
+    Flex,
+    useColorModeValue
 } from '@chakra-ui/react'
 import { ChevronDownIcon, CloseIcon } from '@chakra-ui/icons'
 import { menuConfig } from '../../config/menuConfig'
@@ -36,9 +37,9 @@ export default function MenuLeft({menuOpen, onHandleMenuOpen}: {menuOpen: boolea
             p="10px"
             pt="20px"
             transition="left ease-in-out .2s"
-            bg="primary"
+            bg={useColorModeValue('primary', 'primary_d')}
         >
-        <Box w="100%" display="flex" justifyContent="space-between" alignItems="center">
+        <Box w="100%" display="flex" justifyContent="space-between" alignItems="center" mb="40px">
             <Logo/>
             <Box display={{base: "block", md: "none"}} onClick={toggleMenu}>
                 <IconButton aria-label='Search database' icon={<CloseIcon />} />

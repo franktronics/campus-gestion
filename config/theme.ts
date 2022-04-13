@@ -1,10 +1,12 @@
-import { extendTheme } from '@chakra-ui/react'
+import { extendTheme, useColorModeValue } from '@chakra-ui/react'
 
 // example theme
 const theme = extendTheme({
   colors: {
-    primary: '#fff', //#2d2d2d
-    secondary: '#fafafb' //#202020
+    primary: '#fff', //
+    secondary: '#fafafb', //
+    primary_d: '#2d2d2d',
+    secondary_d: '#202020'
   },
   fonts: {
     body: "system-ui, sans-serif",
