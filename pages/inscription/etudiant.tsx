@@ -1,12 +1,24 @@
-import { Box, Flex, FormControl, Text, FormLabel, Input, useColorModeValue, Button, Center, HStack, PinInput, PinInputField, Badge, Select, Avatar } from '@chakra-ui/react'
+import { Box, Flex, Image, FormControl, Text, FormLabel, Input, useColorModeValue, Button, Center, HStack, PinInput, PinInputField, Badge, Select, Avatar, AvatarBadge } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import SwitchTheme from '../../components/generic/SwitchTheme'
-import { AiOutlineHome } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineHome, AiOutlinePlus } from "react-icons/ai";
 import Link from 'next/link'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import DropProfilPicture from '../../components/generic/DropProfilPicture';
 
 const Signin: NextPage = () => {
     const [state, setState] = useState<number>(1)
+    const [picture, setPicture] = useState<MediaSource | null>()
+
+    useEffect(() => {
+        const profilPicture = document.getElementById('profil-picture') as HTMLImageElement
+        if(picture) profilPicture.src = URL.createObjectURL(picture)
+    }, [picture])
+    const deleteImg = () => {
+        const profilPicture = document.getElementById('profil-picture') as HTMLImageElement
+        if(picture) profilPicture.src = "https://i.ibb.co/yXYZWmD/vide.png"
+        setPicture(null)
+    }
 
     return <>
         <Flex justifyContent="center" alignItems="center" bg={useColorModeValue('secondary', 'secondary_d')} w="100vw" h="100vh">
@@ -60,17 +72,17 @@ const Signin: NextPage = () => {
                     <FormControl>
                         <FormLabel htmlFor='birthday'>Data de naissance</FormLabel>
                         <HStack id='birthday'>
-                            <PinInput>
+                            <PinInput placeholder='j'>
                                 <PinInputField />
                                 <PinInputField />
                             </PinInput>
                             <Box as="span">-</Box>
-                            <PinInput>
+                            <PinInput placeholder='m'>
                                 <PinInputField />
                                 <PinInputField />
                             </PinInput>
                             <Box as="span">-</Box>
-                            <PinInput>
+                            <PinInput placeholder='a'>
                                 <PinInputField />
                                 <PinInputField />
                                 <PinInputField />
@@ -84,10 +96,24 @@ const Signin: NextPage = () => {
                     </FormControl>
                 </Box>}
 
-                {state === 3 && <Box>
-                    <Center>
-                        <Avatar size='2xl' name='Nom Default' src='https://bit.ly/dan-abramov' />
-                    </Center>
+                {state === 3 && <Box display="flex" flexDirection="column" alignItems="center">
+                    <Box position="relative" display="inline-block" role="group">
+                        <Avatar size='2xl' name='Nom Default'/>
+                        <Image id="profil-picture" position="absolute" left="50%" top="0" transform="translateX(-50%)" borderRadius="50%" width="128px" height="128px"/>
+                        <Box position="absolute" left="50%" top="0" transform="translateX(-50%)">
+                            <DropProfilPicture
+                                fileType={["JPG", "JPEG", "PNG"]}
+                                maxSize={2}
+                                onHandleFile={setPicture}
+                            />
+                            <Box position="absolute" right="-5%" top="60%">
+                                <Button borderRadius="50%" bg="#ff0000" h="40px" w="40px">
+                                    {picture && <Center onClick={() => deleteImg()}><AiOutlineDelete size={20}/></Center>}
+                                    {!picture && <Center><AiOutlinePlus size={20}/></Center>}
+                                </Button>
+                            </Box>
+                        </Box>
+                    </Box>
                     <Center><Text fontSize="xl">Pseudonyme</Text></Center>
                     <FormControl mt="20px">
                         <Center><Input id='pseudo' type='text' maxW="200px" placeholder='Pseudonyme'/></Center>
@@ -99,6 +125,7 @@ const Signin: NextPage = () => {
                     {state > 1 && <Button mt="4" onClick={() => {if(state > 1) setState(s => s - 1)}}>
                         Precedent
                     </Button>}
+                    <Box></Box>
                     {state < 4 && <Button mt="4" onClick={() => {if(state < 4) setState(s => s + 1)}}>
                         Suivant
                     </Button>}
