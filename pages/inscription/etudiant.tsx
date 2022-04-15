@@ -1,12 +1,12 @@
-import { Box, Flex, Image, FormControl, Text, FormLabel, Input, useColorModeValue, Button, Center, HStack, PinInput, PinInputField, Badge, Select, Avatar, AvatarBadge } from '@chakra-ui/react'
+import { Box, Flex, Image, FormControl, Text, FormLabel, Input, useColorModeValue, Button, Center, HStack, PinInput, PinInputField, Badge, Select, Avatar, AvatarBadge, InputGroup, InputRightElement } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import SwitchTheme from '../../components/generic/SwitchTheme'
-import { AiOutlineDelete, AiOutlineHome, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEye, AiOutlineEyeInvisible, AiOutlineHome, AiOutlinePlus } from "react-icons/ai";
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import DropProfilPicture from '../../components/generic/DropProfilPicture';
 
-const Signin: NextPage = () => {
+const SigninEtudiant: NextPage = () => {
     const [state, setState] = useState<number>(1)
     const [picture, setPicture] = useState<MediaSource | null>()
 
@@ -19,6 +19,9 @@ const Signin: NextPage = () => {
         if(picture) profilPicture.src = "https://i.ibb.co/yXYZWmD/vide.png"
         setPicture(null)
     }
+    /*** password*/
+    const [show, setShow] = useState<boolean>(false)
+    /*** */
 
     return <>
         <Flex justifyContent="center" alignItems="center" bg={useColorModeValue('secondary', 'secondary_d')} w="100vw" h="100vh">
@@ -31,7 +34,7 @@ const Signin: NextPage = () => {
                             </Button>
                         </a>
                     </Link>
-                    <Text fontSize='2xl'>Inscription {state}/4</Text>
+                    <Text fontSize='2xl'>Inscription etudiant {state}/6</Text>
                     <SwitchTheme/>
                 </Box>
 
@@ -39,9 +42,12 @@ const Signin: NextPage = () => {
                     <FormControl>
                         <FormLabel htmlFor='speciality'>Filiere</FormLabel>
                         <Select defaultValue="Informatique" id='speciality'>
-                            <option value='Informatique'>Informatique</option>
-                            <option value='Gestion'>Gestion</option>
-                            <option value='Chimie'>Chimie</option>
+                            <option value='informatique'>Informatique</option>
+                            <option value='maths'>Mathématiques</option>
+                            <option value='physique'>Physique</option>
+                            <option value='chimie'>Chimie</option>
+                            <option value='geoscience'>GeoScience</option>
+                            <option value='bioscience'>BioScience</option>
                         </Select>
                     </FormControl>
                     <FormControl>
@@ -94,9 +100,26 @@ const Signin: NextPage = () => {
                         <FormLabel htmlFor='bornat'>Lieu de naissance</FormLabel>
                         <Input id='bornat' type='text' />
                     </FormControl>
+                    <FormControl>
+                        <FormLabel htmlFor='phone-number'>Numéro de télephone</FormLabel>
+                        <HStack id='phone-number'>
+                            <PinInput>
+                                <PinInputField />
+                                <PinInputField />
+                                <PinInputField />
+                                <PinInputField />
+                                <PinInputField />
+                                <PinInputField />
+                                <PinInputField />
+                                <PinInputField />
+                                <PinInputField />
+                            </PinInput>
+                        </HStack>
+                    </FormControl>
                 </Box>}
 
                 {state === 3 && <Box display="flex" flexDirection="column" alignItems="center">
+                    <Text fontSize='xs' mb="10px" fontStyle="italic">Image carée au format 128*128 (2Mo max) </Text>
                     <Box position="relative" display="inline-block" role="group">
                         <Avatar size='2xl' name='Nom Default'/>
                         <Image id="profil-picture" position="absolute" left="50%" top="0" transform="translateX(-50%)" borderRadius="50%" width="128px" height="128px"/>
@@ -121,12 +144,67 @@ const Signin: NextPage = () => {
                     
                 </Box>}
 
+                {state === 4 && <Box>
+                    <FormControl>
+                        <Button>Valider</Button>
+                    </FormControl>
+                </Box>}
+
+                {state === 5 && <Box>
+                    <Text align="center" fontSize="xl">Entrer le code de validation</Text>
+                    <FormControl mt="20px" mb="20px">
+                        <Center>
+                            <HStack id='birthday'>
+                                <PinInput>
+                                    <PinInputField border="0" _hover={{border: "0"}} _focus={{border: "0"}}/>
+                                    <PinInputField border="0" _hover={{border: "0"}} _focus={{border: "0"}}/>
+                                    <PinInputField border="0" _hover={{border: "0"}} _focus={{border: "0"}}/>
+                                    <PinInputField border="0" _hover={{border: "0"}} _focus={{border: "0"}}/>
+                                    <PinInputField border="0" _hover={{border: "0"}} _focus={{border: "0"}}/>
+                                    <PinInputField border="0" _hover={{border: "0"}} _focus={{border: "0"}}/>
+                                </PinInput>
+                            </HStack>
+                        </Center> 
+                    </FormControl>
+                    <FormControl>
+                        <Center>
+                            <Button>Valider</Button>
+                        </Center>
+                    </FormControl>
+                </Box>}
+
+                {state === 6 && <Box>
+                    <FormControl>
+                        <FormLabel htmlFor='login'>Login</FormLabel>
+                        <Input id='login' type='text' value="fftenepo@gmail.com" disabled={true}/>
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel htmlFor='password'>Mot de passe*</FormLabel>
+                        <InputGroup>
+                            <Input
+                                type={show ? 'text' : 'password'}
+                                id="password"
+                                placeholder='Entrer le mot de passe'
+                            />
+                            <InputRightElement width='4.5rem'>
+                                <Button h='1.75rem' size='sm' onClick={() => {setShow(s => !s)}}>
+                                    {!show? <AiOutlineEye size={20}/>: <AiOutlineEyeInvisible size={20}/>}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel htmlFor='c-password'>Confirmer*</FormLabel>
+                        <Input id='c-password' type='password' />
+                    </FormControl>
+                </Box>}
+
                 <Flex justifyContent="space-between">
-                    {state > 1 && <Button mt="4" onClick={() => {if(state > 1) setState(s => s - 1)}}>
+                    {(state > 1 && state < 6)&& <Button mt="4" onClick={() => {if(state > 1) setState(s => s - 1)}}>
                         Precedent
                     </Button>}
                     <Box></Box>
-                    {state < 4 && <Button mt="4" onClick={() => {if(state < 4) setState(s => s + 1)}}>
+                    {state < 6 && <Button mt="4" onClick={() => {if(state < 6) setState(s => s + 1)}}>
                         Suivant
                     </Button>}
                 </Flex>
@@ -135,4 +213,4 @@ const Signin: NextPage = () => {
     </>
   }
   
-  export default Signin
+  export default SigninEtudiant

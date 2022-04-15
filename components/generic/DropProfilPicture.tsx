@@ -16,8 +16,8 @@ export default function DropProfilPicture({fileType = ["JPG"], maxSize = 2, onHa
     function onError(err: "size" | "type"){
         setFile(null)
 
-        if(err === "size") setChild(<Text align="center" fontSize='sm'>Trop loud! 2Mo max</Text>)
-        else setChild(<Text align="center" fontSize='sm'>Uniquement {fileType.map(f => {return f + ", "})}</Text>)
+        if(err === "size") setChild(<Text as='mark' align="center" fontSize='sm'>Trop loud! 2Mo max</Text>)
+        else setChild(<Text as='mark' align="center" fontSize='sm'>Uniquement {fileType.map(f => {return f + ", "})}</Text>)
 
         const timer = setTimeout(() => {
             setChild(defaultChild)
