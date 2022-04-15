@@ -106,8 +106,8 @@ const Signin: NextPage = () => {
                                 maxSize={2}
                                 onHandleFile={setPicture}
                             />
-                            <Box position="absolute" right="-5%" top="60%">
-                                <Button borderRadius="50%" bg="#ff0000" h="40px" w="40px">
+                            <Box position="absolute" right="-5%" top="60%" pointerEvents={picture? 'auto': 'none'}>
+                                <Button borderRadius="50%" h="40px" w="40px" pointerEvents={picture? 'auto': 'none'}>
                                     {picture && <Center onClick={() => deleteImg()}><AiOutlineDelete size={20}/></Center>}
                                     {!picture && <Center><AiOutlinePlus size={20}/></Center>}
                                 </Button>
