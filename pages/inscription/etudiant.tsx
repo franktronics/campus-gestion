@@ -34,11 +34,18 @@ const SigninEtudiant: NextPage = () => {
                             </Button>
                         </a>
                     </Link>
-                    <Text fontSize='2xl'>Inscription etudiant {state}/6</Text>
+                    <Text fontSize='2xl' align="center">Inscription etudiant {state}/6</Text>
                     <SwitchTheme/>
                 </Box>
 
                 {state === 1 && <Box>
+                    <FormControl>
+                        <FormLabel htmlFor='speciality'>Faculter</FormLabel>
+                        <Select defaultValue="Faculté des Sciences" id='faculty'>
+                            <option value='fds'>Faculté des Sciences</option>
+                            <option value='fdl'>Faculté des Lettres</option>
+                        </Select>
+                    </FormControl>
                     <FormControl>
                         <FormLabel htmlFor='speciality'>Filiere</FormLabel>
                         <Select defaultValue="Informatique" id='speciality'>
