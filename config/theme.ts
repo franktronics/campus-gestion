@@ -6,7 +6,8 @@ const theme = extendTheme({
     primary: '#fff', //
     secondary: '#fafafb', //
     primary_d: '#2d2d2d',
-    secondary_d: '#202020'
+    secondary_d: '#202020',
+    error: 'crimson'
   },
   fonts: {
     body: "system-ui, sans-serif",

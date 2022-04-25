@@ -1,15 +1,25 @@
-import { Box, useColorModeValue } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import Signin from '../components/account/Signin'
-import Signup from '../components/account/Signup'
-import DashboardRoute from '../components/dashboard/DashboardRoute'
+import Link from "next/link"
 
 const Home: NextPage = () => {
 
-  return <Box bg={useColorModeValue('secondary', 'secondary_d')} minH="100vh">
-    <DashboardRoute/>
-    {/* <Signin/> selon les conditions de connexion
-    <Signup/> */}
+  return <Box>
+    <Button>
+      <Link href="/connexion">
+        <a>Connexion</a>
+      </Link>
+    </Button>
+    <Button>
+      <Link href="/inscription">
+        <a>Inscription</a>
+      </Link>
+    </Button>
+    <Button>
+      <Link href="/dashboard">
+        <a>Dashboard</a>
+      </Link>
+    </Button>
   </Box>
 }
 
