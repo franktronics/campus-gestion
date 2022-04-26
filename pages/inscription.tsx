@@ -160,9 +160,7 @@ const SigninEtudiant: NextPage = () => {
                                 )}
                             />
                         </HStack>
-                        {errors.birthdayJ && <Text fontSize="14px" fontStyle="italic" color="error">{errors.birthdayJ.message}</Text>}
-                        {errors.birthdayM && <Text fontSize="14px" fontStyle="italic" color="error">{errors.birthdayM.message}</Text>}
-                        {errors.birthdayA && <Text fontSize="14px" fontStyle="italic" color="error">{errors.birthdayA.message}</Text>}
+                        {(errors.birthdayJ || errors.birthdayM || errors.birthdayA) && <Text fontSize="14px" fontStyle="italic" color="error">Entrer une date correcte</Text>}
                     </FormControl>
                     <FormControl>
                         <FormLabel htmlFor='bornat'>Lieu de naissance</FormLabel>
