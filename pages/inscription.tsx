@@ -1,4 +1,4 @@
-import { Box, Flex, Image, FormControl, Text, FormLabel, Input, useColorModeValue, Button, Center, HStack, PinInput, PinInputField, Badge, Select, Avatar, AvatarBadge, InputGroup, InputRightElement } from '@chakra-ui/react'
+import { Box, Flex, Image, FormControl, Text, FormLabel, Input, useColorModeValue, Button, Center, HStack, PinInput, PinInputField, Badge, Select, Avatar, AvatarBadge, InputGroup, InputRightElement, Spinner, Alert, AlertIcon, AlertTitle, AlertDescription } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import SwitchTheme from '../components/generic/SwitchTheme'
 import { AiOutlineDelete, AiOutlineEye, AiOutlineEyeInvisible, AiOutlineHome, AiOutlinePlus } from "react-icons/ai";
@@ -7,8 +7,11 @@ import { useEffect, useState } from 'react';
 import DropProfilPicture from '../components/generic/DropProfilPicture';
 import {useForm, Controller} from "react-hook-form"
 import { Form } from '../types/base';
+import axios from 'axios';
+import { useRouter } from 'next/router'
 
 const SigninEtudiant: NextPage = () => {
+    const router = useRouter()
     const [state, setState] = useState<number>(1)
     const [picture, setPicture] = useState<MediaSource | null>()
 
@@ -27,11 +30,82 @@ const SigninEtudiant: NextPage = () => {
     const {register, handleSubmit, formState: { errors }, control} = useForm()
 
     const [formData, setFormData] = useState<Form>()
+    const [req, setReq] = useState(false)
+    const [error, setError] = useState({
+        status: false,
+        message: ''
+    })
+    const [verifCode, setVerifCode] = useState("")
+    const [reqCode, setReqCode] = useState({
+        email: "",
+        code: "",
+        matricule: ""
+    }) //recu du backend
+    type RF = {
+        message: string,
+        status: "success" | "info" | "warning" | "error"
+    }
+    const [finalReq, setFinalReq] = useState<RF>({
+        message: '',
+        status: 'success'
+    })
+
     const onSubmit = (data: any) => {
         setFormData(f => {return {...f, ...data}})
-        if(state < 6) {
-            setState(s => s + 1)
+        
+        if(state <= 6) {
             handleSubmit(onSubmit)
+            if(state === 4){
+                setReq(true)
+                axios.post(process.env.NEXT_PUBLIC_BACK+ 'user/verif', {matricule: formData?.matricule})
+                    .then(res => {
+                        setReq(false)
+                        console.log(res);
+                        if(res.data.messageError){
+                            setError(e => {return {...e, message: res.data.messageError, status: true}})
+                        }else{
+                            setError(e => {return {...e, message: '', status: false}})
+                            setReqCode(c => {return {...c, email: res.data.email, code: res.data.code, matricule: res.data.matricule}})
+                            setState(s => s + 1)
+                        }
+                    })
+                    .catch(error => {
+                        setReq(false)
+                        setError(e => {return {...e, message: "Vérifier votre connexion internet", status: true}})
+                        console.log(error)
+                    })
+            }else if(state === 5){
+                if(reqCode.code.toString() === verifCode.toString()){
+                    setState(s => s + 1)
+                }else{
+
+                }
+            }else if(state === 6){
+                if(formData?.password !== formData?.cpassword){
+                    setFinalReq(f => {return {...f, message: "La confirmation du mot de passe est incorrecte", status: "warning"}})
+                }else{
+                    setFinalReq(f => {return {...f, message: "", status: "success"}})
+                    setReq(true)
+                    axios.post(process.env.NEXT_PUBLIC_BACK+ 'user/signin', {...formData, email: reqCode.email})
+                        .then(res => {
+                            setReq(false)
+                            if(res.data.messageError){
+                                setFinalReq(f => {return {...f, message: res.data.messageError, status: "error"}})
+                            }else{
+                                setFinalReq(f => {return {...f, message: res.data.message, status: "success"}})
+                                setTimeout(() => {
+                                    router.push('/connexion')
+                                }, 1000)
+                            }
+                        })
+                        .catch(er => {
+                            setReq(false)
+                            setFinalReq(f => {return {...f, message: "Une erreur est survenue", status: "error"}})
+                        })
+                }
+            }else{
+                setState(s => s + 1)
+            }
         }
     }
 
@@ -86,7 +160,7 @@ const SigninEtudiant: NextPage = () => {
                             errorBorderColor="error" 
                             _focus={errors.matricule? {borderColor: 'error'}: {}} 
                             id='mat' type='text' 
-                            {...register("matricule", {required: "Le matricule est obligatoire", minLength: {value: 7, message: "Un minimum de 7 caracteres est requis"}})}
+                            {...register("matricule", {required: "Le matricule est obligatoire", minLength: {value: 6, message: "Un minimum de 7 caracteres est requis"}})}
                         />
                         {errors.matricule && <Text fontSize="14px" fontStyle="italic" color="error">{errors.matricule.message}</Text>}
                     </FormControl>
@@ -121,7 +195,7 @@ const SigninEtudiant: NextPage = () => {
                             <Controller
                                 control={control}
                                 name="birthdayJ"
-                                rules={{required: "Entrer votre jour de naissance", min: {value: 1, message: "Entrer un nombre valide"}}}
+                                rules={{required: "Entrer votre jour de naissance", min: {value: 1, message: "Entrer un nombre valide"}, max: {value: 31, message: "Entrer un nombre valide"}}}
                                 render={({
                                     field: { onChange, onBlur, value, name, ref }
                                 }) => (
@@ -135,7 +209,7 @@ const SigninEtudiant: NextPage = () => {
                             <Controller
                                 control={control}
                                 name="birthdayM"
-                                rules={{required: "Entrer votre mois de naissance", min: {value: 1, message: "Entrer un nombre valide"}}}
+                                rules={{required: "Entrer votre mois de naissance", min: {value: 1, message: "Entrer un nombre valide"}, max: {value: 12, message: "Entrer un nombre valide"}}}
                                 render={({
                                     field: { onChange, onBlur, value, name, ref }
                                 }) => (
@@ -149,11 +223,13 @@ const SigninEtudiant: NextPage = () => {
                             <Controller
                                 control={control}
                                 name="birthdayA"
-                                rules={{required: "Entrer votre année de naissance", min: {value: 1, message: "Entrer un nombre valide"}}}
+                                rules={{required: "Entrer votre année de naissance", min: {value: 1900, message: "Entrer un nombre valide"}}}
                                 render={({
                                     field: { onChange, onBlur, value, name, ref }
                                 }) => (
                                     <PinInput value={value} onChange={onChange} placeholder="a">
+                                        <PinInputField/>
+                                        <PinInputField/>
                                         <PinInputField/>
                                         <PinInputField/>
                                     </PinInput>
@@ -266,14 +342,30 @@ const SigninEtudiant: NextPage = () => {
                             <Text fontWeight="bold">Numéro de téléphone:</Text><Text>{formData?.phoneNumber}</Text>
                         </Flex>
                     </FormControl>
+                    {error.status && <FormControl mt="10px">
+                        <Alert 
+                            status='error'
+                            variant='subtle'
+                            flexDirection='column'
+                            alignItems='center'
+                            justifyContent='center'
+                            textAlign='center'
+                            height='100px'
+                        >
+                            <AlertIcon />
+                            <AlertTitle>Une erreur est survenue</AlertTitle>
+                            <AlertDescription>{error.message}</AlertDescription>
+                        </Alert>
+                    </FormControl>}
                 </Box>}
 
                 {state === 5 && <Box>
                     <Text align="center" fontSize="xl">Entrer le code de validation</Text>
+                    <Text align="center" fontSize="14">Un code de vérification a été envoyé a l&apos;adresse {reqCode.email}</Text>
                     <FormControl mt="20px" mb="20px">
                         <Center>
                             <HStack id='birthday'>
-                                <PinInput>
+                                <PinInput value={verifCode} onChange={(e) => {setVerifCode(e)}}>
                                     <PinInputField border="0" _hover={{border: "0"}} _focus={{border: "0"}}/>
                                     <PinInputField border="0" _hover={{border: "0"}} _focus={{border: "0"}}/>
                                     <PinInputField border="0" _hover={{border: "0"}} _focus={{border: "0"}}/>
@@ -284,12 +376,27 @@ const SigninEtudiant: NextPage = () => {
                             </HStack>
                         </Center> 
                     </FormControl>
+                    {(reqCode.code.toString() !== verifCode.toString() && verifCode.length >= 6) && <FormControl mt="10px">
+                        <Alert 
+                            status='error'
+                            variant='subtle'
+                            flexDirection='column'
+                            alignItems='center'
+                            justifyContent='center'
+                            textAlign='center'
+                            height='100px'
+                        >
+                            <AlertIcon />
+                            <AlertTitle>Le code est incorrecte</AlertTitle>
+                            <AlertDescription>Entrer le code valide</AlertDescription>
+                        </Alert>
+                    </FormControl>}
                 </Box>}
 
                 {state === 6 && <Box>
                     <FormControl>
                         <FormLabel htmlFor='login'>Login</FormLabel>
-                        <Input id='login' type='text' value="fftenepo@gmail.com" disabled={true}/>
+                        <Input id='login' type='text' value={reqCode.email} disabled={true}/>
                     </FormControl>
                     <FormControl>
                         <FormLabel htmlFor='password'>Mot de passe*</FormLabel>
@@ -298,6 +405,9 @@ const SigninEtudiant: NextPage = () => {
                                 type={show ? 'text' : 'password'}
                                 id="password"
                                 placeholder='Entrer le mot de passe'
+                                errorBorderColor="error" 
+                                _focus={errors.password? {borderColor: 'error'}: {}} 
+                                {...register("password", {required: "Entrer un mot de passe", minLength: {value: 6, message: "Un minimum de 6 caracteres est requis"}})}
                             />
                             <InputRightElement width='4.5rem'>
                                 <Button h='1.75rem' size='sm' onClick={() => {setShow(s => !s)}}>
@@ -308,17 +418,40 @@ const SigninEtudiant: NextPage = () => {
                     </FormControl>
                     <FormControl>
                         <FormLabel htmlFor='c-password'>Confirmer*</FormLabel>
-                        <Input id='c-password' type='password' />
+                        <Input 
+                            id='c-password' type='password' 
+                            errorBorderColor="error" 
+                            _focus={errors.cpassword? {borderColor: 'error'}: {}} 
+                            {...register("cpassword", {required: "Verifier le mot de passe", minLength: {value: 6, message: "Un minimum de 6 caracteres est requis"}})}
+                        />
                     </FormControl>
+                    {finalReq.message !== '' && <FormControl mt="10px">
+                        <Alert 
+                            status={finalReq.status}
+                            variant='subtle'
+                            flexDirection='column'
+                            alignItems='center'
+                            justifyContent='center'
+                            textAlign='center'
+                            height='100px'
+                        >
+                            <AlertIcon />
+                            <AlertDescription>{finalReq.message}</AlertDescription>
+                        </Alert>
+                    </FormControl>}
                 </Box>}
 
                 <Flex justifyContent="space-between">
-                    {(state > 1 && state < 6)&& <Button mt="4" onClick={() => {if(state > 1) setState(s => s - 1)}}>
+                    {(state > 1 && state < 5)&& <Button mt="4" onClick={() => {if(state > 1) setState(s => s - 1)}}>
                         Precedent
                     </Button>}
                     <Box></Box>
-                    {state < 6 && <Button mt="4" onClick={handleSubmit(onSubmit)}>
-                        {state === 4 || state === 5? 'Valider': 'Suivant'}
+                    {state <= 6 && <Button mt="4" onClick={handleSubmit(onSubmit)}>
+                        {state === 4? 'Valider ': ''}
+                        {state === 5? 'Valider ': ''}
+                        {state === 6? 'S\'inscrire ': ''}
+                        {state < 4? 'Suivant': ''}
+                        {req && <Spinner size='sm' ml="5px"/>}
                     </Button>}
                     
                 </Flex>

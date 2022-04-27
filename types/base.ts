@@ -12,4 +12,6 @@ export type Form = {
     phoneNumber: string,
     speciality: string,
     pseudo: string
+    password: string,
+    cpassword: string
 }
