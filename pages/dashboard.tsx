@@ -16,7 +16,7 @@ const Dashboard: NextPage = () => {
         const id = Cookies.get('userId')
         const token = Cookies.get('token')
         if(!id || !token){
-            router.push('/connextion')
+            router.push('/connexion')
         }else{
             setCookies(c => {return {...c, userId: id, token: token}})
         }
