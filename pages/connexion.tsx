@@ -25,6 +25,11 @@ const Connexion = () => {
         message: ''
     })
     const connect = () => {
+        const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+        if(!data.email.match(regex)){
+            setReqState(r => {return {...r, req: false, status: "warning", message: "Entrer une email valide"}})
+            return
+        }
         setReqState(r => {return {...r, req: true}})
         axios.post(process.env.NEXT_PUBLIC_BACK+ 'user/login', data)
             .then((res) => {
