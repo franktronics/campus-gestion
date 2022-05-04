@@ -9,6 +9,7 @@ import {useForm, Controller} from "react-hook-form"
 import { Form } from '../types/base';
 import axios from 'axios';
 import { useRouter } from 'next/router'
+import { getFormData } from '../script/formData';
 
 const SigninEtudiant: NextPage = () => {
     const router = useRouter()
@@ -86,7 +87,11 @@ const SigninEtudiant: NextPage = () => {
                 }else{
                     setFinalReq(f => {return {...f, message: "", status: "success"}})
                     setReq(true)
-                    axios.post(process.env.NEXT_PUBLIC_BACK+ 'user/signin', {...formData, email: reqCode.email})
+
+                    const data = getFormData({...formData, email: reqCode.email, image: picture})
+                    console.log(data);
+                    
+                    axios.post(process.env.NEXT_PUBLIC_BACK+ 'user/signin', data)
                         .then(res => {
                             setReq(false)
                             if(res.data.messageError){

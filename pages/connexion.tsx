@@ -82,7 +82,7 @@ const Connexion = () => {
                         alignItems='center'
                         justifyContent='center'
                         textAlign='center'
-                        height='50px'
+                        height='80px'
                     >
                         <AlertIcon />
                         <AlertDescription>{reqState.message}</AlertDescription>
