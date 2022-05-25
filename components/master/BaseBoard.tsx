@@ -75,18 +75,18 @@ export default function BaseBoard () {
     return <Box>
         {status.actual === 'fac' && <>
             <Text fontSize="4xl">Facultés</Text>
-            <Flex wrap="wrap">
+            <Box display="flex" flexWrap="wrap" justifyContent="space-around">
                 {dataFac.map((fac, k) => {
                     return <CardFac key={fac.id} data={fac} onHandleClick={onFacClick}/>
                 })}
-            </Flex>
+            </Box>
         </>}
         {status.actual === 'fil' && <>
             <Box fontSize="4xl" display="flex" alignItems="center">
                 <IconButton aria-label='retour' mr="10px" icon={<AiOutlineLeft/>} onClick={backState}/>
                 <Text>Filieres</Text>
             </Box>
-            <Box display="flex" flexWrap="wrap">
+            <Box display="flex" flexWrap="wrap" justifyContent="space-around">
                 {dataFil.map((fil, k) => {
                     if(status.preview === fil.facId) return <CardFil key={fil.id} data={fil}/>
                 })}
