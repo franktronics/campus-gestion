@@ -1,24 +1,15 @@
 import {
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
-    MenuItemOption,
-    MenuGroup,
-    MenuOptionGroup,
-    MenuDivider,
     Box,
-    Button,
     IconButton,
     Text,
     Flex,
     useColorModeValue
 } from '@chakra-ui/react'
-import { ChevronDownIcon, CloseIcon } from '@chakra-ui/icons'
-import { menuConfig } from '../../config/menuConfig'
+import { CloseIcon } from '@chakra-ui/icons'
 import Logo from './Logo'
+import { MenuConfig } from '../../types/base'
 
-export default function MenuLeft({menuOpen, onHandleMenuOpen}: {menuOpen: boolean, onHandleMenuOpen: Function}) {
+export default function MenuLeft({menuOpen, onHandleMenuOpen, menuConfig}: {menuOpen: boolean, onHandleMenuOpen: Function, menuConfig: MenuConfig[]}) {
 
 
     const toggleMenu = () => {
@@ -38,6 +29,7 @@ export default function MenuLeft({menuOpen, onHandleMenuOpen}: {menuOpen: boolea
             pt="20px"
             transition="left ease-in-out .2s"
             bg={useColorModeValue('primary', 'primary_d')}
+            boxShadow="card"
         >
         <Box w="100%" display="flex" justifyContent="space-between" alignItems="center" mb="40px">
             <Logo/>

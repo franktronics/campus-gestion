@@ -49,7 +49,7 @@ const Home: NextPage = () => {
       <Box position="relative" zIndex="10">
         <BtnLink link="/inscription" name="Inscription etudiant" style={style1}/>
         <BtnLink link="/connexion" name="Connexion etudiant" style={style2}/>
-        <BtnLink link="/connexion-en" name="Inscription enseignant" style={style3}/>
+        <BtnLink link="/connexion-en" name="Connexion enseignant" style={style3}/>
       </Box>
     </Box>
   </Box>

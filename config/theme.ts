@@ -7,7 +7,9 @@ const theme = extendTheme({
     secondary: '#fafafb', //
     primary_d: '#2d2d2d',
     secondary_d: '#202020',
-    error: 'crimson'
+    error: 'crimson',
+    text1: '#44545b',
+    text1_d: '#cad0c3'
   },
   fonts: {
     body: "system-ui, sans-serif",
@@ -65,6 +67,9 @@ const theme = extendTheme({
     wider: "0.05em",
     widest: "0.1em",
   },
+  shadows: {
+    card: '0px 0px 16px 2px rgb(194 194 194 / 10%), 0px 0px 10px -2px rgb(194 194 194 / 10%)'
+  }
 });
 
 export default  theme
