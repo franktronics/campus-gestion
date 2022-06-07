@@ -4,11 +4,13 @@ import { AiOutlineLeft } from "react-icons/ai";
 import { Fac, Fil } from "../../types/base";
 import CardFac from "./CardFac";
 import CardFil from "./CardFil";
+import CardNiv from "./CardNiv";
 
 export default function BaseBoard () {
     const [status, setStatus] = useState({
-        actual: 'fac',
-        preview: ''
+        fac: '',
+        fil: '',
+        niv: ''
     })
     const dataFac: Fac[] = [
         {
@@ -17,7 +19,7 @@ export default function BaseBoard () {
         },
         {
             id: 'fac2',
-            title: 'Faculté des sciences informatique'
+            title: 'Faculté des sciences'
         }
     ]
     const dataFil: Fil[] = [
@@ -60,20 +62,48 @@ export default function BaseBoard () {
     const onFacClick = (facCliked: Fac) => {
         setStatus(s => {return {
             ...s,
-            actual: 'fil', //indique qu'on est dans une facule et on doit afficher les fil
-            preview: facCliked.id //id de la faculte choisie
+            fac: facCliked.id, //indique qu'on est dans une faculte et on doit afficher les fil
+        }})
+    }
+    const onFilClick = (filCliked: Fil) => {
+        setStatus(s => {return {
+            ...s,
+            fil: filCliked.id, //indique qu'on est dans une faculte et on doit afficher les fil
+        }})
+    }
+    const onNivClick = (nivClick: string) => {
+        setStatus(s => {return {
+            ...s,
+            niv: nivClick, //indique qu'on est dans une faculte et on doit afficher les fil
         }})
     }
     const backState = () => {
-        setStatus(s => {return {
-            ...s,
-            actual: 'fac',
-            preview: ''
-        }})
+        if(status.niv !== '') {
+            setStatus(s => {
+                return {
+                    ...s,
+                    niv: ''
+                }
+            })
+        }else if(status.fil !== '' && status.niv === '') {
+            setStatus(s => {
+                return {
+                    ...s,
+                    fil: ''
+                }
+            })
+        }else if(status.fac !== '' && status.fil === '' && status.niv === '') {
+            setStatus(s => {
+                return {
+                    ...s,
+                    fac: ''
+                }
+            })
+        }
     }
 
     return <Box>
-        {status.actual === 'fac' && <>
+        {status.fac === '' && <>
             <Text fontSize="4xl">Facultés</Text>
             <Box display="flex" flexWrap="wrap" justifyContent="space-around">
                 {dataFac.map((fac, k) => {
@@ -81,15 +111,35 @@ export default function BaseBoard () {
                 })}
             </Box>
         </>}
-        {status.actual === 'fil' && <>
+        {(status.fac !== '' && status.fil === '') && <>
             <Box fontSize="4xl" display="flex" alignItems="center">
                 <IconButton aria-label='retour' mr="10px" icon={<AiOutlineLeft/>} onClick={backState}/>
                 <Text>Filieres</Text>
             </Box>
             <Box display="flex" flexWrap="wrap" justifyContent="space-around">
                 {dataFil.map((fil, k) => {
-                    if(status.preview === fil.facId) return <CardFil key={fil.id} data={fil}/>
+                    if(status.fac === fil.facId) return <CardFil key={fil.id} data={fil} onHandleClick={onFilClick}/>
                 })}
+            </Box>
+        </>}
+        {(status.fil !== '' && status.niv === '') && <>
+            <Box fontSize="4xl" display="flex" alignItems="center">
+                <IconButton aria-label='retour' mr="10px" icon={<AiOutlineLeft/>} onClick={backState}/>
+                <Text>Niveaux</Text>
+            </Box>
+            <Box display="flex" flexWrap="wrap" justifyContent="space-around">
+                {['1', '2', '3', '4', '5'].map((niv, k) => {
+                    return <CardNiv key={niv} data={niv} onHandleClick={onNivClick}/>
+                })}
+            </Box>
+        </>}
+        {(status.fac !== '' && status.fil !== '' && status.niv !== '') && <>
+            <Box fontSize="4xl" display="flex" alignItems="center">
+                <IconButton aria-label='retour' mr="10px" icon={<AiOutlineLeft/>} onClick={backState}/>
+                <Text>Niveau</Text>
+            </Box>
+            <Box display="flex" flexWrap="wrap" justifyContent="space-around">
+                {status.fac}/{status.fil}/{status.niv}
             </Box>
         </>}
     </Box>

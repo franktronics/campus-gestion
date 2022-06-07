@@ -68,7 +68,7 @@ const theme = extendTheme({
     widest: "0.1em",
   },
   shadows: {
-    card: '0px 0px 16px 2px rgb(194 194 194 / 10%), 0px 0px 10px -2px rgb(194 194 194 / 10%)'
+    card: '0px 0px 1px 1px rgb(194 194 194 / 10%), 0px 0px 10px 0px rgb(194 194 194 / 10%)'
   }
 });
 

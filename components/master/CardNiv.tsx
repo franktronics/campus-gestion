@@ -1,7 +1,6 @@
 import { Box, Text, useColorModeValue } from "@chakra-ui/react";
-import { Fil } from "../../types/base";
 
-export default function CardFil ({data, onHandleClick}: {data: Fil, onHandleClick: Function}) {
+export default function({data, onHandleClick}: {data: string, onHandleClick: Function}) {
 
     return <Box
         w="200px" height="250px"
@@ -17,7 +16,7 @@ export default function CardFil ({data, onHandleClick}: {data: Fil, onHandleClic
 
         </Box>
         <Box h="30%">
-            <Text textAlign="center">{data.title.toUpperCase()}</Text>
+            <Text textAlign="center">{data.toUpperCase()}</Text>
         </Box>
     </Box>
 }

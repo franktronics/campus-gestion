@@ -88,8 +88,7 @@ const SigninEtudiant: NextPage = () => {
                     setFinalReq(f => {return {...f, message: "", status: "success"}})
                     setReq(true)
 
-                    const data = getFormData({...formData, email: reqCode.email, image: picture})
-                    console.log(data);
+                    const data = {...formData, email: reqCode.email}
                     
                     axios.post(process.env.NEXT_PUBLIC_BACK+ 'user/signin', data)
                         .then(res => {

@@ -3,7 +3,7 @@ import axios from "axios"
 import Link from 'next/link'
 import { useState } from "react"
 import { AiOutlineHome } from "react-icons/ai"
-import SwitchTheme from "../components/generic/SwitchTheme"
+import SwitchTheme from "../../components/generic/SwitchTheme"
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 
@@ -11,7 +11,7 @@ const Connexion = () => {
     const router = useRouter()
 
     const [data, setData] = useState({
-        email: '',
+        identifier: '',
         password: ''
     })
     type RF = {
@@ -25,22 +25,21 @@ const Connexion = () => {
         message: ''
     })
     const connect = () => {
-        const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-        if(!data.email.match(regex)){
-            setReqState(r => {return {...r, req: false, status: "warning", message: "Entrer une email valide"}})
+        if(data.identifier.length < 4){
+            setReqState(r => {return {...r, req: false, status: "warning", message: "Entrer un identifiant valide"}})
             return
         }
         setReqState(r => {return {...r, req: true}})
-        axios.post(process.env.NEXT_PUBLIC_BACK+ 'user/login', data)
+        axios.post(process.env.NEXT_PUBLIC_BACK+ 'master/login', data)
             .then((res) => {
                 if(res.data.messageError){
                     setReqState(r => {return {...r, req: false, status: "warning", message: res.data.messageError}})
                 }else{
-                    Cookies.set('userId', res.data.userId)
-                    Cookies.set('token', res.data.token)
+                    Cookies.set('masterId', res.data.masterId)
+                    Cookies.set('masterToken', res.data.token)
                     setReqState(r => {return {...r, req: false, status: "success", message: res.data.message}})
                     setTimeout(() => {
-                        router.push('/dashboard')
+                        router.push('/master/dashboard')
                     }, 1000)
                 }
             })
@@ -59,13 +58,13 @@ const Connexion = () => {
                         </Button>
                     </a>
                 </Link>
-                <Text fontSize='2xl' align="center">Connexion etudiant</Text>
+                <Text fontSize='2xl' align="center">Connexion admin</Text>
                 <SwitchTheme/>
             </Box>
             <Box>
                 <FormControl>
-                    <FormLabel htmlFor='email'>Email</FormLabel>
-                    <Input id='email' type='email' value={data.email} onChange={(e) => {setData(d => {return {...d, email: e.target.value}})}}/>
+                    <FormLabel htmlFor='identifier'>Identifiant</FormLabel>
+                    <Input id='identifier' type='text' value={data.identifier} onChange={(e) => {setData(d => {return {...d, identifier: e.target.value}})}}/>
                 </FormControl>
                 <FormControl>
                     <FormLabel htmlFor='password'>Mot de passe</FormLabel>

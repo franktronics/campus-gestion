@@ -30,5 +30,5 @@ export type Fac = {
 export type Fil = {
     id: string,
     title: string,
-    facId: string
+    facId: string,
 }
