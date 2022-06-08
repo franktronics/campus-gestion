@@ -37,6 +37,7 @@ const Connexion = () => {
                 }else{
                     Cookies.set('masterId', res.data.masterId)
                     Cookies.set('masterToken', res.data.token)
+                    Cookies.set('identifier', data.identifier)
                     setReqState(r => {return {...r, req: false, status: "success", message: res.data.message}})
                     setTimeout(() => {
                         router.push('/master/dashboard')

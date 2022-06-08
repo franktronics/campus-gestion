@@ -32,3 +32,9 @@ export type Fil = {
     title: string,
     facId: string,
 }
+
+export type CookiesMaster = {
+    masterId: string,
+    masterToken: string,
+    identifier: string
+}

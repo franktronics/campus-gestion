@@ -1,18 +1,28 @@
 import { Box, Button, Flex, IconButton, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { AiOutlineLeft } from "react-icons/ai";
-import { Fac, Fil } from "../../types/base";
+import { CookiesMaster, Fac, Fil } from "../../types/base";
 import CardFac from "./CardFac";
 import CardFil from "./CardFil";
 import CardNiv from "./CardNiv";
 
-export default function BaseBoard () {
+export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
     const [status, setStatus] = useState({
         fac: '',
         fil: '',
         niv: ''
     })
-    const dataFac: Fac[] = [
+    const [dataFac, setDataFac] = useState([{
+        id: '',
+        title: '',
+    }])
+    const [dataFil, setDataFil] = useState([{
+        id: '',
+        title: '',
+        facId: '',
+    }])
+    /*const dataFac: Fac[] = [
         {
             id: 'fac1',
             title: 'Faculté des arts, lettres et sciences humaines',
@@ -21,8 +31,8 @@ export default function BaseBoard () {
             id: 'fac2',
             title: 'Faculté des sciences'
         }
-    ]
-    const dataFil: Fil[] = [
+    ]*/
+    /*const dataFil: Fil[] = [
         {
             id: 'fil1',
             title: 'Allemand',
@@ -58,7 +68,8 @@ export default function BaseBoard () {
             title: 'Biochimie',
             facId: 'fac2',
         },
-    ]
+    ]*/
+    
     const onFacClick = (facCliked: Fac) => {
         setStatus(s => {return {
             ...s,
@@ -101,6 +112,28 @@ export default function BaseBoard () {
             })
         }
     }
+    useEffect(() => {
+        const config = {
+            headers: { Authorization: `Bearer ${cookies.masterToken}` }
+        }
+        axios.get(process.env.NEXT_PUBLIC_BACK+ 'master/getdata?id='+cookies.masterId, config)
+        .then((res) => {  
+            if(res.data.messageError){
+                
+            }else{ 
+                console.log(res);
+                
+                setDataFac([])
+                setDataFac(f => {return [...f, ...res.data.fac]})
+                setDataFil([])
+                setDataFil(f => {return [...f, ...res.data.fil]})
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            
+        })
+    }, [])
 
     return <Box>
         {status.fac === '' && <>
