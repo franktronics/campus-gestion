@@ -1,6 +1,6 @@
 import { Box, Text, useColorModeValue } from "@chakra-ui/react";
 
-export default function({data, onHandleClick}: {data: string, onHandleClick: Function}) {
+export default function CardNiv ({data, onHandleClick}: {data: string, onHandleClick: Function}) {
 
     return <Box
         w="200px" height="250px"
