@@ -38,3 +38,13 @@ export type CookiesMaster = {
     masterToken: string,
     identifier: string
 }
+
+export type ModifCardType = {
+    type: string,
+    title: string
+}
+export type AlertType = {
+    status: 'error' | 'success' | 'warning' | 'info',
+    title: string,
+    description: string
+}

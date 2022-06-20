@@ -6,6 +6,7 @@ import { CookiesMaster, Fac, Fil } from "../../types/base";
 import CardFac from "./CardFac";
 import CardFil from "./CardFil";
 import CardNiv from "./CardNiv";
+import ModifCard from "./ModifCard";
 
 export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
     const [status, setStatus] = useState({
@@ -137,7 +138,13 @@ export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
 
     return <Box>
         {status.fac === '' && <>
-            <Text fontSize="4xl">Facultés</Text>
+            <Flex alignItems="center">
+                <Text fontSize="4xl" mr="10px">Facultés</Text>
+                <ModifCard
+                    type="fac"
+                    title="Creer une faculté"
+                />
+            </Flex>
             <Box display="flex" flexWrap="wrap" justifyContent="space-around">
                 {dataFac.map((fac, k) => {
                     return <CardFac key={fac.id} data={fac} onHandleClick={onFacClick}/>
@@ -147,7 +154,11 @@ export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
         {(status.fac !== '' && status.fil === '') && <>
             <Box fontSize="4xl" display="flex" alignItems="center">
                 <IconButton aria-label='retour' mr="10px" icon={<AiOutlineLeft/>} onClick={backState}/>
-                <Text>Filieres</Text>
+                <Text mr="10px">Filieres</Text>
+                <ModifCard
+                    type="fil"
+                    title="Creer une filiere"
+                />
             </Box>
             <Box display="flex" flexWrap="wrap" justifyContent="space-around">
                 {dataFil.map((fil, k) => {
