@@ -122,8 +122,6 @@ export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
             if(res.data.messageError){
                 
             }else{ 
-                console.log(res);
-                
                 setDataFac([])
                 setDataFac(f => {return [...f, ...res.data.fac]})
                 setDataFil([])
@@ -136,6 +134,19 @@ export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
         })
     }, [])
 
+    const handleFac = (id: string, title: string) => {
+        setDataFac(f => {return [
+            ...f,
+            {id, title}
+        ]})
+    }
+    const handleFil = (id: string, title: string, facId: string) => {
+        setDataFil(f => {return [
+            ...f,
+            {id, title, facId}
+        ]})
+    }
+
     return <Box>
         {status.fac === '' && <>
             <Flex alignItems="center">
@@ -143,6 +154,8 @@ export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
                 <ModifCard
                     type="fac"
                     title="Creer une faculté"
+                    onHandleFac={handleFac}
+                    onHandleFil={handleFil}
                 />
             </Flex>
             <Box display="flex" flexWrap="wrap" justifyContent="space-around">
@@ -158,6 +171,9 @@ export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
                 <ModifCard
                     type="fil"
                     title="Creer une filiere"
+                    fac={status.fac}
+                    onHandleFac={setDataFac}
+                    onHandleFil={setDataFil}
                 />
             </Box>
             <Box display="flex" flexWrap="wrap" justifyContent="space-around">

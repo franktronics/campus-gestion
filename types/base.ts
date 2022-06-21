@@ -40,8 +40,11 @@ export type CookiesMaster = {
 }
 
 export type ModifCardType = {
-    type: string,
-    title: string
+    type: 'fac' | 'fil',
+    title: string,
+    fac?: string,
+    onHandleFac: Function,
+    onHandleFil: Function
 }
 export type AlertType = {
     status: 'error' | 'success' | 'warning' | 'info',
