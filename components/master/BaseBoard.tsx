@@ -23,53 +23,6 @@ export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
         title: '',
         facId: '',
     }])
-    /*const dataFac: Fac[] = [
-        {
-            id: 'fac1',
-            title: 'Faculté des arts, lettres et sciences humaines',
-        },
-        {
-            id: 'fac2',
-            title: 'Faculté des sciences'
-        }
-    ]*/
-    /*const dataFil: Fil[] = [
-        {
-            id: 'fil1',
-            title: 'Allemand',
-            facId: 'fac1',
-        },
-        {
-            id: 'fil2',
-            title: 'Anglais',
-            facId: 'fac1',
-        },
-        {
-            id: 'fil3',
-            title: 'Anthropologie',
-            facId: 'fac1',
-        },
-        {
-            id: 'fil4',
-            title: 'Informatique',
-            facId: 'fac2',
-        },
-        {
-            id: 'fil5',
-            title: 'Mathématiques',
-            facId: 'fac2',
-        },
-        {
-            id: 'fil6',
-            title: 'Microbiologie',
-            facId: 'fac2',
-        },
-        {
-            id: 'fil7',
-            title: 'Biochimie',
-            facId: 'fac2',
-        },
-    ]*/
     
     const onFacClick = (facCliked: Fac) => {
         setStatus(s => {return {
@@ -135,16 +88,14 @@ export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
     }, [])
 
     const handleFac = (id: string, title: string) => {
-        setDataFac(f => {return [
-            ...f,
-            {id, title}
-        ]})
+        setDataFac(
+            dataFac.concat({id, title})
+        )
     }
     const handleFil = (id: string, title: string, facId: string) => {
-        setDataFil(f => {return [
-            ...f,
-            {id, title, facId}
-        ]})
+        setDataFil(
+            dataFil.concat({id, title, facId})
+        )
     }
 
     return <Box>
@@ -159,7 +110,7 @@ export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
                 />
             </Flex>
             <Box display="flex" flexWrap="wrap" justifyContent="space-around">
-                {dataFac.map((fac, k) => {
+                {typeof(dataFac) !== 'string' && dataFac.map((fac, k) => {
                     return <CardFac key={fac.id} data={fac} onHandleClick={onFacClick}/>
                 })}
             </Box>
@@ -177,7 +128,7 @@ export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
                 />
             </Box>
             <Box display="flex" flexWrap="wrap" justifyContent="space-around">
-                {dataFil.map((fil, k) => {
+                {typeof(dataFil) !== 'string' && dataFil.map((fil, k) => {
                     if(status.fac === fil.facId) return <CardFil key={fil.id} data={fil} onHandleClick={onFilClick}/>
                 })}
             </Box>

@@ -54,7 +54,7 @@ export default function ModifCard ({type, title, fac = '', onHandleFac, onHandle
                         <FormLabel htmlFor='new-name'>Entrer le nom</FormLabel>
                         <Input 
                             value={name}
-                            onChange={(e) => {setName(e.target.value)}}
+                            onChange={(e: any) => {setName(e.target.value)}}
                             id="new-name" 
                             placeholder='Completez...' 
                             minLength={4}

@@ -1,31 +1,37 @@
 import { CalendarIcon } from "@chakra-ui/icons"
+import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai"
 import { MenuConfig } from "../types/base"
+import { FaChalkboardTeacher } from "react-icons/fa"
+import { BsJournalBookmark } from "react-icons/bs"
+import { FiUsers } from "react-icons/fi"
+
+const size = 25
 
 export const menuConfig1: MenuConfig[] = [
     {
         title: 'Accueil',
         link: '',
-        icon: <CalendarIcon/>
+        icon: <AiOutlineHome size={size}/>
     },
     {
         title: 'Semestre 1',
         link: '',
-        icon: <CalendarIcon/>
+        icon: <AiOutlineHome size={size}/>
     },
     {
         title: 'Semestre 2',
         link: '',
-        icon: <CalendarIcon/>
+        icon: <AiOutlineHome size={size}/>
     },
     {
         title: 'Diffusion',
         link: '',
-        icon: <CalendarIcon/>
+        icon: <AiOutlineHome size={size}/>
     },
     {
         title: 'Emploi de temps',
         link: '',
-        icon: <CalendarIcon/>
+        icon: <AiOutlineHome size={size}/>
     },
 ]
 //////
@@ -33,26 +39,26 @@ export const menuConfigMaster: MenuConfig[] = [
     {
         title: 'Accueil',
         link: '',
-        icon: <CalendarIcon/>
+        icon: <AiOutlineHome size={size}/>
     },
     {
-        title: 'Semestre 1',
+        title: 'Enseignants',
         link: '',
-        icon: <CalendarIcon/>
+        icon: <FaChalkboardTeacher size={size}/>
     },
     {
-        title: 'Semestre 2',
+        title: 'Matieres',
         link: '',
-        icon: <CalendarIcon/>
+        icon: <BsJournalBookmark size={size}/>
     },
     {
-        title: 'Diffusion',
+        title: 'Etudiants',
         link: '',
-        icon: <CalendarIcon/>
+        icon: <FiUsers size={size}/>
     },
     {
-        title: 'Emploi de temps',
+        title: 'Reglage',
         link: '',
-        icon: <CalendarIcon/>
+        icon: <AiOutlineSetting size={size}/>
     },
 ]

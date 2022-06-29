@@ -39,7 +39,7 @@ export default function MenuLeft({menuOpen, onHandleMenuOpen, menuConfig}: {menu
         </Box>
         {
             menuConfig.map((item, k) => {
-                return <Flex key={k} p={2} bg="var(--primary)" alignItems="center" borderRadius="10px">
+                return <Flex key={k} p={2} bg="var(--primary)" alignItems="center" borderRadius="10px" _hover={{cursor: 'pointer', background: 'bg1'}} transition="all .3s">
                     {item.icon}
                     <Text ml={2}>{item.title}</Text>
                 </Flex>

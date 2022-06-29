@@ -16,6 +16,24 @@ const SigninEtudiant: NextPage = () => {
     const [state, setState] = useState<number>(1)
     const [picture, setPicture] = useState<MediaSource | null>()
 
+    /******fetch data fac an d fil */
+    const [facList, setFacList] = useState<any>({
+        fac: [],
+        fil: []
+    })
+    useEffect(() => {
+        axios.get(process.env.NEXT_PUBLIC_BACK+ 'user/getfac')
+        .then(res => {
+            setFacList((f: any) => {return{
+                ...f,
+                fac: res.data.fac,
+                fil: res.data.fil
+            }})
+        })
+    }, [])
+    
+    /******fetch data fac an d fil */
+
     useEffect(() => {
         const profilPicture = document.getElementById('profil-picture') as HTMLImageElement
         if(picture) profilPicture.src = URL.createObjectURL(picture)
@@ -112,6 +130,7 @@ const SigninEtudiant: NextPage = () => {
             }
         }
     }
+    
 
     return <>
         <Flex justifyContent="center" alignItems="center" bg={useColorModeValue('secondary', 'secondary_d')} w="100%" minH="100vh">
@@ -131,20 +150,18 @@ const SigninEtudiant: NextPage = () => {
                 {state === 1 && <Box>
                     <FormControl>
                         <FormLabel htmlFor='speciality'>Faculter *</FormLabel>
-                        <Select isInvalid={errors.faculty? true: false} defaultValue="Faculté des Sciences" id='faculty' {...register("faculty", {required: "Vous devez selectionner une faculté"})}>
-                            <option value='fds'>Faculté des Sciences</option>
-                            <option value='fdl'>Faculté des Lettres</option>
+                        <Select isInvalid={errors.faculty? true: false} defaultValue="fac1" id='faculty' {...register("faculty", {required: "Vous devez selectionner une faculté"})}>
+                            {facList.fac.map((el: any) => {
+                                return <option value={el.id} key={el.id}>{el.title}</option>
+                            })}
                         </Select>
                     </FormControl>
                     <FormControl>
                         <FormLabel htmlFor='speciality'>Filiere *</FormLabel>
-                        <Select isInvalid={errors.speciality? true: false} defaultValue="Informatique" id='speciality' {...register("speciality", {required: "Selectionnez votre filiere"})}>
-                            <option value='informatique'>Informatique</option>
-                            <option value='maths'>Mathématiques</option>
-                            <option value='physique'>Physique</option>
-                            <option value='chimie'>Chimie</option>
-                            <option value='geoscience'>GeoScience</option>
-                            <option value='bioscience'>BioScience</option>
+                        <Select isInvalid={errors.speciality? true: false} defaultValue="fil1" id='speciality' {...register("speciality", {required: "Selectionnez votre filiere"})}>
+                            {facList.fil.map((el: any) => {
+                                return <option value={el.id} key={el.id}>{el.title}</option>
+                            })}
                         </Select>
                     </FormControl>
                     <FormControl>

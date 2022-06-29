@@ -7,6 +7,7 @@ const theme = extendTheme({
     secondary: '#fafafb', //
     primary_d: '#2d2d2d',
     secondary_d: '#202020',
+    bg1: 'linear-gradient(45deg, #fd2e44, #fe3852)',
     error: 'crimson',
     text1: '#44545b',
     text1_d: '#cad0c3'
