@@ -21,7 +21,7 @@ export default function Board ({children}: B) {
         />
         <Box 
             w={{base: "100%", md: "calc(100% - 200px)"}} 
-            ml={{base: 0, md: "200px"}} p="10"
+            ml={{base: 0, md: "200px"}} p="20px"
         >
             {children}
         </Box>

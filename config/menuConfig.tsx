@@ -11,54 +11,64 @@ export const menuConfig1: MenuConfig[] = [
     {
         title: 'Accueil',
         link: '',
-        icon: <AiOutlineHome size={size}/>
+        icon: <AiOutlineHome size={size}/>,
+        query: ''
     },
     {
         title: 'Semestre 1',
         link: '',
-        icon: <AiOutlineHome size={size}/>
+        icon: <AiOutlineHome size={size}/>,
+        query: ''
     },
     {
         title: 'Semestre 2',
         link: '',
-        icon: <AiOutlineHome size={size}/>
+        icon: <AiOutlineHome size={size}/>,
+        query: ''
     },
     {
         title: 'Diffusion',
         link: '',
-        icon: <AiOutlineHome size={size}/>
+        icon: <AiOutlineHome size={size}/>,
+        query: ''
     },
     {
         title: 'Emploi de temps',
         link: '',
-        icon: <AiOutlineHome size={size}/>
+        icon: <AiOutlineHome size={size}/>,
+        query: ''
     },
 ]
 //////
 export const menuConfigMaster: MenuConfig[] = [
     {
         title: 'Accueil',
-        link: '',
-        icon: <AiOutlineHome size={size}/>
+        link: '/master/dashboard',
+        icon: <AiOutlineHome size={size}/>,
+        query: ''
     },
     {
         title: 'Enseignants',
-        link: '',
-        icon: <FaChalkboardTeacher size={size}/>
+        link: '/master/dashboard?name=enseignants',
+        icon: <FaChalkboardTeacher size={size}/>,
+        query: 'enseignants'
     },
     {
         title: 'Matieres',
-        link: '',
-        icon: <BsJournalBookmark size={size}/>
+        link: '/master/dashboard?name=matieres',
+        icon: <BsJournalBookmark size={size}/>,
+        query: 'matieres'
     },
     {
         title: 'Etudiants',
-        link: '',
-        icon: <FiUsers size={size}/>
+        link: '/master/dashboard?name=etudiants',
+        icon: <FiUsers size={size}/>,
+        query: 'etudiants'
     },
     {
         title: 'Reglage',
-        link: '',
-        icon: <AiOutlineSetting size={size}/>
+        link: '/master/dashboard?name=reglage',
+        icon: <AiOutlineSetting size={size}/>,
+        query: 'reglage'
     },
 ]

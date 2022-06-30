@@ -8,9 +8,12 @@ import {
 import { CloseIcon } from '@chakra-ui/icons'
 import Logo from './Logo'
 import { MenuConfig } from '../../types/base'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function MenuLeft({menuOpen, onHandleMenuOpen, menuConfig}: {menuOpen: boolean, onHandleMenuOpen: Function, menuConfig: MenuConfig[]}) {
-
+    const router = useRouter()
+    const query = router.query.name? router.query.name: ''
 
     const toggleMenu = () => {
         onHandleMenuOpen((c: boolean) => !c)
@@ -18,7 +21,7 @@ export default function MenuLeft({menuOpen, onHandleMenuOpen, menuConfig}: {menu
 
     return <Box 
             as="aside" 
-            position="absolute" 
+            position="fixed" 
             left={{base: menuOpen? "0": "-200px", md: "0"}} 
             top="0" bottom="0" 
             height="100vh" 
@@ -30,6 +33,7 @@ export default function MenuLeft({menuOpen, onHandleMenuOpen, menuConfig}: {menu
             transition="left ease-in-out .2s"
             bg={useColorModeValue('primary', 'primary_d')}
             boxShadow="card"
+            zIndex={1000}
         >
         <Box w="100%" display="flex" justifyContent="space-between" alignItems="center" mb="40px">
             <Logo/>
@@ -39,9 +43,11 @@ export default function MenuLeft({menuOpen, onHandleMenuOpen, menuConfig}: {menu
         </Box>
         {
             menuConfig.map((item, k) => {
-                return <Flex key={k} p={2} bg="var(--primary)" alignItems="center" borderRadius="10px" _hover={{cursor: 'pointer', background: 'bg1'}} transition="all .3s">
+                return <Flex key={k} p={2} mb="15px" bg={query === item.query? 'bg1' :"var(--primary)"} alignItems="center" borderRadius="10px" _hover={{cursor: 'pointer', background: 'bg1'}} transition="all .3s">
                     {item.icon}
-                    <Text ml={2}>{item.title}</Text>
+                    <Link href={item.link}>
+                        <a><Text ml={2}>{item.title}</Text></a>
+                    </Link>
                 </Flex>
             })
         }

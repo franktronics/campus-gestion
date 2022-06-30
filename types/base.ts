@@ -19,7 +19,8 @@ export type Form = {
 export type MenuConfig = {
     title: string,
     link: string,
-    icon: JSX.Element
+    icon: JSX.Element,
+    query: string
 }
 
 export type Fac = {
@@ -50,4 +51,12 @@ export type AlertType = {
     status: 'error' | 'success' | 'warning' | 'info',
     title: string,
     description: string
+}
+export type DataEnseignantType = {
+    name: string,
+    firstname: string,
+    grade: string,
+    identifier: string,
+    password?: string,
+    phoneNumber: string
 }

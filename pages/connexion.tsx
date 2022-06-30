@@ -65,11 +65,11 @@ const Connexion = () => {
             <Box>
                 <FormControl>
                     <FormLabel htmlFor='email'>Email</FormLabel>
-                    <Input id='email' type='email' value={data.email} onChange={(e) => {setData(d => {return {...d, email: e.target.value}})}}/>
+                    <Input id='email' type='email' value={data.email} onChange={(e: any) => {setData(d => {return {...d, email: e.target.value}})}}/>
                 </FormControl>
                 <FormControl>
                     <FormLabel htmlFor='password'>Mot de passe</FormLabel>
-                    <Input id='password' type='password' value={data.password} onChange={(e) => {setData(d => {return {...d, password: e.target.value}})}}/>
+                    <Input id='password' type='password' value={data.password} onChange={(e: any) => {setData(d => {return {...d, password: e.target.value}})}}/>
                 </FormControl>
                 <FormControl mt="10px">
                     <Button onClick={() => {connect()}}>Se connecter {reqState.req && <Spinner size='sm' ml="5px"/>}</Button>
