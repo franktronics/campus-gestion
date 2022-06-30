@@ -94,7 +94,7 @@ export default function CardEns ({data, childExpand, onHandleExpand, index, onDe
 
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent bg={useColorModeValue('secondary', 'secondary_d')}>
+            <ModalContent bg={useColorModeValue('secondary', 'secondary_d')} m="10px">
                 <ModalHeader>Supprimer {`${data.name} ${data.firstname}`}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>

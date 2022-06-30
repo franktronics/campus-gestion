@@ -3,7 +3,8 @@ import { Box, Text, useColorModeValue } from "@chakra-ui/react";
 export default function CardNiv ({data, onHandleClick}: {data: string, onHandleClick: Function}) {
 
     return <Box
-        w="200px" height="250px"
+        w={{base: '100%', md: '200px'}} 
+        height={{base: '150px', md: '250px'}} 
         bg={useColorModeValue('primary', 'primary_d')}
         p="10px"
         m="10px"
