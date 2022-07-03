@@ -5,7 +5,8 @@ import BaseBoard from '../../components/master/BaseBoard'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { CookiesMaster } from '../../types/base'
-import Enseignants from '../../components/master/Enseignants'
+import Enseignants from '../../components/master/pages/Enseignants'
+import Matieres from '../../components/master/pages/Matieres'
 
 const Dashboard: NextPage = () => {
     const router = useRouter()
@@ -33,6 +34,7 @@ const Dashboard: NextPage = () => {
     return <Board>
         {router.query.name? <>
             {router.query.name === 'enseignants' && <Enseignants/>}
+            {router.query.name === 'matieres' && <Matieres/>}
         </>: <>
             <BaseBoard cookies={cookies}/>
         </>}

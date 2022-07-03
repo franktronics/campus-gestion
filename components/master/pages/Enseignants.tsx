@@ -4,8 +4,8 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { DataEnseignantType } from "../../types/base";
-import CardEns from "./CardEns";
+import { DataEnseignantType } from "../../../types/base";
+import CardEns from "../CardEns";
 
 
 export default function Enseignants () {
@@ -229,7 +229,7 @@ export default function Enseignants () {
                     onHandleExpand={setChildExpand}
                     onDeleteEns={deleteEns}
                 />
-            })}
+            }).reverse()}
         </Box>
     </Flex>
 }

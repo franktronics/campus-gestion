@@ -46,7 +46,7 @@ const SigninEtudiant: NextPage = () => {
     /*** password*/
     const [show, setShow] = useState<boolean>(false)
     /*** */
-    const {register, handleSubmit, formState: { errors }, control} = useForm()
+    const {register, handleSubmit, watch, formState: { errors }, control} = useForm()
 
     const [formData, setFormData] = useState<Form>()
     const [req, setReq] = useState(false)
@@ -130,7 +130,7 @@ const SigninEtudiant: NextPage = () => {
             }
         }
     }
-    
+    const selectedFac = watch('faculty', 'fac1')
 
     return <>
         <Flex justifyContent="center" alignItems="center" bg={useColorModeValue('secondary', 'secondary_d')} w="100%" minH="100vh">
@@ -160,18 +160,16 @@ const SigninEtudiant: NextPage = () => {
                         <FormLabel htmlFor='speciality'>Filiere *</FormLabel>
                         <Select isInvalid={errors.speciality? true: false} defaultValue="fil1" id='speciality' {...register("speciality", {required: "Selectionnez votre filiere"})}>
                             {facList.fil.map((el: any) => {
-                                return <option value={el.id} key={el.id}>{el.title}</option>
+                                return el.facId === selectedFac? <option value={el.id} key={el.id}>{el.title}</option>: ''
                             })}
                         </Select>
                     </FormControl>
                     <FormControl>
                         <FormLabel htmlFor='level'>Niveau *</FormLabel>
                         <Select isInvalid={errors.level? true: false} defaultValue="1" id='level' {...register("level", {required: "Quel est votre niveau ?"})}>
-                            <option value='1'>1</option>
-                            <option value='2'>2</option>
-                            <option value='3'>3</option>
-                            <option value='4'>4</option>
-                            <option value='5'>5</option>
+                            {['1', '2', '3', '4', '5'].map(el => {
+                                return <option value={el} key={el}>{el}</option>
+                            })}
                         </Select>
                     </FormControl>
                     <FormControl>

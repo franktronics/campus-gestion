@@ -60,3 +60,10 @@ export type DataEnseignantType = {
     password?: string,
     phoneNumber: string
 }
+export type DataMatType = {
+    fac: string,
+    fil: string,
+    niv: '1' | '2' | '3' | '4' | '5',
+    intitled: string,
+    code: string
+}
