@@ -1,4 +1,4 @@
-import { Box, IconButton, Table, Text, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, useColorModeValue, Flex, HStack, PinInput, PinInputField, useToast } from "@chakra-ui/react";
+import { Box, IconButton, Table, Text, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, useColorModeValue, Flex, HStack, PinInput, PinInputField, useToast, useColorMode } from "@chakra-ui/react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
@@ -89,6 +89,7 @@ export default function Schedule ({version, utils, path}: S) {
             }
         }
     }
+    const { colorMode, toggleColorMode } = useColorMode()
 
     return <Box 
         bg={useColorModeValue('primary', 'primary_d')} 
@@ -98,13 +99,12 @@ export default function Schedule ({version, utils, path}: S) {
         <TableContainer w="100%" fontFamily="body">
             <Table >
                 <Thead>
-                    <Tr>
+                    <Tr color={useColorModeValue('primary_d', 'text1_d')}>
                         {DAYS_NAME.map((name: string) => {
                             return <Th key={name}>
                                 <Text 
                                     textAlign="center" 
                                     fontFamily="body"
-                                    color={useColorModeValue('primary_d', 'text1_d')}
                                 >{name}</Text>
                             </Th>
                         })}
@@ -112,13 +112,13 @@ export default function Schedule ({version, utils, path}: S) {
                 </Thead>
                 <Tbody>
                     {HOURS.map((hour, k) => {
-                        return <Tr key={hour+k} bg={k % 2 === 0? useColorModeValue('color1', 'color1_d'): ''}>
+                        return <Tr key={hour+k} bg={k % 2 === 0? (colorMode === 'light'? 'color1': 'color1_d'): ''}>
                             <Td textAlign="center">{hour>9? hour: '0'+hour}h - {hour+1>9? hour+1: '0'+(hour + 1)}h</Td>
                             {DAYS.map((day, j) => {
                                 return <Td 
                                     key={day+j} 
                                     p="10px" 
-                                    _hover={{bg: useColorModeValue('color2', 'color2_d')}}
+                                    _hover={colorMode === 'light'? {bg: 'color2'}: {bg: 'color2_d'}}
                                 >
                                     <CardHours 
                                         day={day} 
