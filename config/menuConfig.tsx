@@ -3,6 +3,7 @@ import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai"
 import { MenuConfig } from "../types/base"
 import { FaChalkboardTeacher } from "react-icons/fa"
 import { BsJournalBookmark } from "react-icons/bs"
+import { MdOutlineHomeWork } from "react-icons/md"
 import { FiUsers } from "react-icons/fi"
 
 const size = 25
@@ -58,6 +59,12 @@ export const menuConfigMaster: MenuConfig[] = [
         link: '/master/dashboard?name=matieres',
         icon: <BsJournalBookmark size={size}/>,
         query: 'matieres'
+    },
+    {
+        title: 'Salles',
+        link: '/master/dashboard?name=salles',
+        icon: <MdOutlineHomeWork size={size}/>,
+        query: 'salles'
     },
     {
         title: 'Etudiants',

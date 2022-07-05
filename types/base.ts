@@ -58,12 +58,31 @@ export type DataEnseignantType = {
     grade: string,
     identifier: string,
     password?: string,
-    phoneNumber: string
+    phoneNumber: string,
+    date?: number
 }
 export type DataMatType = {
     fac: string,
     fil: string,
     niv: '1' | '2' | '3' | '4' | '5',
     intitled: string,
-    code: string
+    code: string,
+    date?: number
+}
+export type DataRoomType = {
+    room: string,
+    description: string,
+    date?: number;
+}
+
+export type Utils = {
+    ens: DataEnseignantType[],
+    mat: DataMatType[],
+    room: DataRoomType[]
+}
+
+export type ScheduleData = {
+    ens: string,
+    mat: string,
+    room: string
 }

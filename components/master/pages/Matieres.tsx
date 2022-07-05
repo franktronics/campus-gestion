@@ -218,7 +218,7 @@ export default function Matieres () {
                 <FormLabel htmlFor='intitled'>Intitulé *</FormLabel>
                 <Input 
                     isInvalid={errors.intitled? true: false} 
-                    errorBorderColor="intitled" 
+                    errorBorderColor="error" 
                     _focus={errors.intitled? {borderColor: 'error'}: {}} 
                     id='intitled' type='text' 
                     {...register("intitled", {required: "Le nom est obligatoire", minLength: {value: 2, message: "Entrer un intitulé valide"}})}

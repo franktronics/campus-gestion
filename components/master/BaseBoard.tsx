@@ -7,6 +7,7 @@ import CardFac from "./CardFac";
 import CardFil from "./CardFil";
 import CardNiv from "./CardNiv";
 import ModifCard from "./ModifCard";
+import ScheduleLayout from "./schedule/ScheduleLayout";
 
 export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
     const [status, setStatus] = useState({
@@ -150,7 +151,11 @@ export default function BaseBoard ({cookies}: {cookies: CookiesMaster}) {
                 <Text>Niveau</Text>
             </Box>
             <Box display="flex" flexWrap="wrap" justifyContent="space-around">
-                {status.fac}/{status.fil}/{status.niv}
+                <ScheduleLayout 
+                    dataFac={dataFac} 
+                    dataFil={dataFil}
+                    path={status.fac+'-'+status.fil+'-'+status.niv}
+                />
             </Box>
         </>}
     </Box>
